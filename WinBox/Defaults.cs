@@ -1,23 +1,25 @@
 ﻿using System;
+using System.Linq;
 
 namespace WinBox
 {
 	public static class Defaults
 	{
-		public static Pack CreateVirtualBox()
+		public static Pack CreateVirtualBox(MachineConfig m)
 		{
-			return new Pack
+			var pack = new Pack
 			{
 				builders = {
 					new Builder {
 						type = "virtualbox-iso",
 						vboxmanage = {
-							new [] { "modifyvm", "{{.Name}}", "--natpf1", "winrm,tcp,127.0.0.1,55991,,5985" },
-							new [] { "modifyvm", "{{.Name}}", "--memory", "5120" },
-							new [] { "modifyvm", "{{.Name}}", "--vram", "36" },
-							new [] { "modifyvm", "{{.Name}}", "--cpus", "2" }
+							new [] { "modifyvm", "{{.Name}}", "--memory", m.Memory+"" },
+							new [] { "modifyvm", "{{.Name}}", "--vram", m.Vram+"" },
+							new [] { "modifyvm", "{{.Name}}", "--cpus", m.Cpus+"" }
 						},
-						guest_os_type = "Windows7_64",
+						guest_additions_mode = "{{ user `guest_additions_mode` }}",
+						guest_additions_path = "C:/users/vagrant/VBoxGuestAdditions.iso",
+						guest_os_type = m.OperatingSystem,
 						iso_url = "{{ user `iso_url` }}",
 						iso_checksum = "{{ user `iso_checksum` }}",
 						iso_checksum_type = "sha1",
@@ -38,6 +40,12 @@ namespace WinBox
 						}
 					}
 				},
+				/* provisioners = {
+					new Provisioner {
+						type = "powershell",
+						script = "scripts/provision.ps1"
+					}
+				}, */
 				post_processors = {
 					new PostProcessor {
 						type = "vagrant",
@@ -47,11 +55,16 @@ namespace WinBox
 					}
 				},
 				variables = new Variables {
+					guest_additions_mode = "attach",
 					headless = "false",
 					iso_checksum = "39d2e2924e186124ea44d2453069b34ef18ea45e",
 					iso_url = "iso/Win7_Pro_SP1_German_x64.iso"
 				}
 			};
+			var builder = pack.builders.First();
+			foreach (var forward in m.Forwardings)
+				builder.vboxmanage.Insert(0, new [] { "modifyvm", "{{.Name}}", "--natpf1", forward.ToString() });
+			return pack;
 		}
 	}
 }

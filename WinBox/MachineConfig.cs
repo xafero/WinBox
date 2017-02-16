@@ -22,9 +22,9 @@ namespace WinBox
 			Vram = 48;
 			Memory = 2048;
 			Forwardings = new List<Forwarding> {
-				new Forwarding("guest_winrm", "tcp", "127.0.0.1", 55992, null, 5985)
+				new Forwarding("winrm", "tcp", "127.0.0.1", 55991, null, 5985)
 			};
-			OperatingSystem = GuestOS.Windows2012_64;
+			OperatingSystem = GuestOS.Windows7_64;
 		}
 	}
 }
