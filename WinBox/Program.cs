@@ -23,12 +23,12 @@ namespace WinBox
 			log.InfoFormat("Looking for => {0}", packerExe);
 			if (!File.Exists(packerExe))
 				Shell.DownloadPacker(root, config);
-			var pack = Defaults.CreateVirtualBox();
+			var pack = Defaults.CreateVirtualBox(new MachineConfig());
 			var packFile = Path.Combine(root, "winbox.json");
 			File.WriteAllText(packFile, pack.ToString());
 			Shell.ExecutePacker(packerExe, packFile, config);
 			log.InfoFormat("Have a nice day!");
-			if (Debugger.IsAttached) Debugger.Break();
+			// if (Debugger.IsAttached) Debugger.Break();
 		}
 	}
 }

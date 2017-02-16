@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace WinBox
 {
@@ -9,10 +10,12 @@ namespace WinBox
 		private static readonly JsonSerializerSettings cfg = new JsonSerializerSettings
 		{
 			Formatting = Formatting.Indented,
-			NullValueHandling = NullValueHandling.Ignore
+			NullValueHandling = NullValueHandling.Ignore,
+			Converters = { new StringEnumConverter() }
 		};
 		
 		public List<Builder> builders { get; set; }
+		public List<Provisioner> provisioners { get; set; }
 		[JsonProperty("post-processors")]
 		public List<PostProcessor> post_processors { get; set; }
 		public Variables variables { get; set; }
@@ -20,6 +23,7 @@ namespace WinBox
 		public Pack()
 		{
 			builders = new List<Builder>();
+			provisioners = new List<Provisioner>();
 			post_processors = new List<PostProcessor>();
 			variables = new Variables();
 		}
@@ -34,7 +38,9 @@ namespace WinBox
 	{
 		public string type { get; set; }
 		public List<string[]> vboxmanage { get; set; }
-		public string guest_os_type { get; set; }
+		public string guest_additions_mode { get; set; }
+		public string guest_additions_path { get; set; }
+		public GuestOS guest_os_type { get; set; }
 		public string iso_url { get; set; }
 		public string iso_checksum { get; set; }
 		public string iso_checksum_type { get; set; }
@@ -54,6 +60,12 @@ namespace WinBox
 		}
 	}
 	
+	public class Provisioner
+	{
+		public string type { get; set; }
+		public string script { get; set; }
+	}
+	
 	public class PostProcessor
 	{
 		public string type { get; set; }
@@ -64,6 +76,7 @@ namespace WinBox
 	
 	public class Variables
 	{
+		public string guest_additions_mode { get; set; }
 		public string headless { get; set; }
 		public string iso_checksum { get; set; }
 		public string iso_url { get; set; }
