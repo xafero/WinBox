@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
@@ -20,10 +21,9 @@ namespace WinBox
 			var packerExe = Path.Combine(root, "packer.exe");
 			log.InfoFormat("Looking for => {0}", packerExe);
 			if (!File.Exists(packerExe))
-			{
-				var packerUrl = config["packer"];
-				log.InfoFormat("Downloading from => {0}", packerUrl);
-			}
+				Shell.DownloadPacker(root, config);
+			Shell.ExecutePacker(packerExe, "shit.json", config);
+			log.InfoFormat("Have a nice day!");
 			if (Debugger.IsAttached)
 				Debugger.Break();
 		}
