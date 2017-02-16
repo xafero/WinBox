@@ -5,7 +5,7 @@ namespace WinBox
 {
 	public static class Defaults
 	{
-		public static Pack CreateVirtualBox(MachineConfig m)
+		public static Pack CreateVirtualBox(MachineConfig m, string isoUrl, string isoHash)
 		{
 			var pack = new Pack
 			{
@@ -51,8 +51,8 @@ namespace WinBox
 				variables = new Variables {
 					guest_additions_mode = "attach",
 					headless = "false",
-					iso_checksum = "39d2e2924e186124ea44d2453069b34ef18ea45e",
-					iso_url = "iso/Win7_Pro_SP1_German_x64.iso"
+					iso_checksum = isoHash,
+					iso_url = isoUrl
 				}
 			};
 			var builder = pack.builders.First();

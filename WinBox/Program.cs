@@ -32,7 +32,9 @@ namespace WinBox
 			var machRoot = Path.Combine(templRoot, machine.OperatingSystem+"");
 			var answerSrc = Path.Combine(machRoot, "unattend.xml");
 			var answerDst = Path.Combine(root, "Autounattend.xml");
-			var pack = Defaults.CreateVirtualBox(machine);
+			var isoUrl = config["isoPath"];
+			var isoHash = config["isoHash"];
+			var pack = Defaults.CreateVirtualBox(machine, isoUrl, isoHash);
 			Answers.CopyReplace(templRoot, answerSrc, answerDst);
 			pack.builders.First().AddFloppyFile(answerDst);
 			const string vagrantFile = "vagrantfile-windows.template";
