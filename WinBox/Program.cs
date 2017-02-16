@@ -23,14 +23,7 @@ namespace WinBox
 			log.InfoFormat("Looking for => {0}", packerExe);
 			if (!File.Exists(packerExe))
 				Shell.DownloadPacker(root, config);
-			var pack = new Pack
-			{
-				builders = {
-					new Builder {
-						type = "virtualbox-iso"
-					}
-				}
-			};
+			var pack = Defaults.CreateVirtualBox();
 			var packFile = Path.Combine(root, "winbox.json");
 			File.WriteAllText(packFile, pack.ToString());
 			Shell.ExecutePacker(packerExe, packFile, config);
