@@ -33,6 +33,25 @@ namespace WinBox
 	public class Builder
 	{
 		public string type { get; set; }
+		public List<string[]> vboxmanage { get; set; }
+		public string guest_os_type { get; set; }
+		public string iso_url { get; set; }
+		public string iso_checksum { get; set; }
+		public string iso_checksum_type { get; set; }
+		public string communicator { get; set; }
+		public string headless { get; set; }
+		public string winrm_username { get; set; }
+		public string winrm_password { get; set; }
+		public int winrm_port { get; set; }
+		public string winrm_timeout { get; set; }
+		public string shutdown_command { get; set; }
+		public string shutdown_timeout { get; set; }
+		public string[] floppy_files { get; set; }
+		
+		public Builder()
+		{
+			vboxmanage = new List<string[]>();
+		}
 	}
 	
 	public class PostProcessor
