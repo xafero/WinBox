@@ -43,6 +43,7 @@
     <Reference Include="System.IO.Compression.FileSystem" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Answers.cs" />
     <Compile Include="Defaults.cs" />
     <Compile Include="Forwarding.cs" />
     <Compile Include="GuestOS.cs" />
@@ -58,17 +59,17 @@
     <None Include="templates\win12r2\unattend_x64.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="templates\win7\unattend_x32.xml">
+    <None Include="templates\Windows7_64\unattend.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="templates\win7\unattend_x64.xml">
+    <None Include="templates\vagrantfile-windows.template">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="templates" />
     <Folder Include="templates\win12r2" />
-    <Folder Include="templates\win7" />
+    <Folder Include="templates\Windows7_64" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

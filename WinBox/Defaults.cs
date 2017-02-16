@@ -31,13 +31,7 @@ namespace WinBox
 						winrm_timeout = "24h",
 						shutdown_command = "C:/windows/system32/sysprep/sysprep.exe /generalize /oobe /unattend:C:/Windows/Panther/Unattend/unattend.xml /quiet /shutdown",
 						shutdown_timeout = "15m",
-						floppy_files = new [] {
-							"answer_files/win7/Autounattend.xml",
-							"answer_files/win7/postunattend.xml",
-							"scripts/boxstarter.ps1",
-							"scripts/package.ps1",
-							"scripts/Test-Command.ps1"
-						}
+						floppy_files = new string[0]
 					}
 				},
 				/* provisioners = {

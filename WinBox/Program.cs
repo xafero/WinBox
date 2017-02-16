@@ -3,7 +3,8 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
+using System.Reflection;
+using System.Linq;
 using log4net;
 using log4net.Config;
 
@@ -23,12 +24,27 @@ namespace WinBox
 			log.InfoFormat("Looking for => {0}", packerExe);
 			if (!File.Exists(packerExe))
 				Shell.DownloadPacker(root, config);
-			var pack = Defaults.CreateVirtualBox(new MachineConfig());
+			var assPlace = Assembly.GetEntryAssembly().Location;
+			var appRoot = Directory.GetParent(Path.GetFullPath(assPlace)).FullName;
+			var templRoot = Path.Combine(appRoot, "templates");
+			log.InfoFormat("Template root => {0}", templRoot);
+			var machine = new MachineConfig();
+			var machRoot = Path.Combine(templRoot, machine.OperatingSystem+"");
+			var answerSrc = Path.Combine(machRoot, "unattend.xml");
+			var answerDst = Path.Combine(root, "Autounattend.xml");
+			var pack = Defaults.CreateVirtualBox(machine);
+			Answers.CopyReplace(templRoot, answerSrc, answerDst);
+			pack.builders.First().AddFloppyFile(answerDst);
+			const string vagrantFile = "vagrantfile-windows.template";
+			var vagrantSrc = Path.Combine(templRoot, vagrantFile);
+			var vagrantDst = Path.Combine(root, vagrantFile);
+			File.Copy(vagrantSrc, vagrantDst, overwrite: true);
 			var packFile = Path.Combine(root, "winbox.json");
+			log.InfoFormat("Generating => {0}", packFile);
 			File.WriteAllText(packFile, pack.ToString());
-			Shell.ExecutePacker(packerExe, packFile, config);
+			Shell.ExecutePacker(root, packerExe, packFile, config);
 			log.InfoFormat("Have a nice day!");
-			// if (Debugger.IsAttached) Debugger.Break();
+			if (Debugger.IsAttached) Debugger.Break();
 		}
 	}
 }

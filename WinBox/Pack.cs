@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -57,6 +58,13 @@ namespace WinBox
 		public Builder()
 		{
 			vboxmanage = new List<string[]>();
+		}
+
+		public void AddFloppyFile(string file)
+		{
+			file = file.Replace('\\', '/');
+			var files = floppy_files.Concat(new [] { file });
+			floppy_files = files.ToArray();
 		}
 	}
 	

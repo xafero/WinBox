@@ -28,12 +28,13 @@ namespace WinBox
 			}
 		}
 		
-		public static void ExecutePacker(string packerExe, string pack, NameValueCollection config)
+		public static void ExecutePacker(string workDir, string packerExe, string pack, NameValueCollection config)
 		{
 			var builder = config["builder"];
 			var procInfo = new ProcessStartInfo
 			{
 				UseShellExecute = false,
+				WorkingDirectory = workDir,
 				FileName = packerExe,
 				Arguments = string.Format("build -force -only {0} {1}", builder, pack)
 			};
