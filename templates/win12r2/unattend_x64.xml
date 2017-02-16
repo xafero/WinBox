@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+	<settings pass="windowsPE">
+		<component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
+        xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<SetupUILanguage>
+				<UILanguage>de-DE</UILanguage>
+			</SetupUILanguage>
+			<InputLocale>de-DE</InputLocale>
+			<SystemLocale>de-DE</SystemLocale>
+			<UILanguage>de-DE</UILanguage>
+			<UILanguageFallback>de-DE</UILanguageFallback>
+			<UserLocale>de-DE</UserLocale>
+		</component>
+		<component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
+        xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<DiskConfiguration>
+				<Disk wcm:action="add">
+					<CreatePartitions>
+						<CreatePartition wcm:action="add">
+							<Order>1</Order>
+							<Type>Primary</Type>
+							<Size>100</Size>
+						</CreatePartition>
+						<CreatePartition wcm:action="add">
+							<Extend>true</Extend>
+							<Order>2</Order>
+							<Type>Primary</Type>
+						</CreatePartition>
+					</CreatePartitions>
+					<ModifyPartitions>
+						<ModifyPartition wcm:action="add">
+							<Active>true</Active>
+							<Format>NTFS</Format>
+							<Label>System Reserved</Label>
+							<Order>1</Order>
+							<PartitionID>1</PartitionID>
+							<TypeID>0x27</TypeID>
+						</ModifyPartition>
+						<ModifyPartition wcm:action="add">
+							<Active>true</Active>
+							<Format>NTFS</Format>
+							<Label>SrvHDD</Label>
+							<Letter>C</Letter>
+							<Order>2</Order>
+							<PartitionID>2</PartitionID>
+						</ModifyPartition>
+					</ModifyPartitions>
+					<DiskID>0</DiskID>
+					<WillWipeDisk>true</WillWipeDisk>
+				</Disk>
+			</DiskConfiguration>
+			<ImageInstall>
+				<OSImage>
+					<InstallTo>
+						<DiskID>0</DiskID>
+						<PartitionID>2</PartitionID>
+					</InstallTo>
+					<InstallToAvailablePartition>false</InstallToAvailablePartition>
+				</OSImage>
+			</ImageInstall>
+			<UserData>
+				<AcceptEula>true</AcceptEula>
+				<FullName>A-USER</FullName>
+				<Organization>A-ORG</Organization>
+				<ProductKey>
+					<Key>AAAAA-AAAAA</Key>
+                    <WillShowUI>OnError</WillShowUI>
+                </ProductKey>
+			</UserData>
+			<EnableFirewall>false</EnableFirewall>
+		</component>
+	</settings>
+	<settings pass="offlineServicing">
+		<component name="Microsoft-Windows-LUA-Settings" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
+        xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<EnableLUA>false</EnableLUA>
+		</component>
+	</settings>
+	<settings pass="generalize">
+		<component name="Microsoft-Windows-Security-SPP" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
+        xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<SkipRearm>1</SkipRearm>
+		</component>
+	</settings>
+	<settings pass="specialize">
+		<component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
+        xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<InputLocale>de-DE</InputLocale>
+			<SystemLocale>de-DE</SystemLocale>
+			<UILanguage>de-DE</UILanguage>
+			<UILanguageFallback>de-DE</UILanguageFallback>
+			<UserLocale>de-DE</UserLocale>
+		</component>
+		<component name="Microsoft-Windows-Security-SPP-UX" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
+        xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<SkipAutoActivation>true</SkipAutoActivation>
+		</component>
+		<component name="Microsoft-Windows-SQMApi" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
+        xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<CEIPEnabled>0</CEIPEnabled>
+		</component>
+		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
+        xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<ComputerName>A-PC</ComputerName>
+			<ProductKey>AAAAA-AAAAA-AAAAA-AAAAA-AAAAA</ProductKey>
+		</component>
+		<component name="Microsoft-Windows-ServerManager-SvrMgrNc" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
+		xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <DoNotOpenServerManagerAtLogon>true</DoNotOpenServerManagerAtLogon>
+        </component>
+		<component name="Microsoft-Windows-IE-ESC" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
+		xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <IEHardenAdmin>false</IEHardenAdmin>
+            <IEHardenUser>false</IEHardenUser>
+        </component>
+		<component name="Microsoft-Windows-OutOfBoxExperience" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
+		xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <DoNotOpenInitialConfigurationTasksAtLogon>true</DoNotOpenInitialConfigurationTasksAtLogon>
+        </component>
+	</settings>
+	<settings pass="oobeSystem">
+		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
+        xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<AutoLogon>
+				<Password>
+					<Value>A-PW</Value>
+					<PlainText>true</PlainText>
+				</Password>
+				<Enabled>true</Enabled>
+				<Username>A-USER</Username>
+			</AutoLogon>
+			<OOBE>
+				<HideEULAPage>true</HideEULAPage>
+				<HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
+				<HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+				<HideLocalAccountScreen>true</HideLocalAccountScreen>
+				<HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+				<NetworkLocation>Work</NetworkLocation>
+				<ProtectYourPC>3</ProtectYourPC>
+				<SkipUserOOBE>true</SkipUserOOBE>
+				<SkipMachineOOBE>true</SkipMachineOOBE>
+			</OOBE>
+			<UserAccounts>
+			    <AdministratorPassword>
+          			<Value>vagrant</Value>
+          			<PlainText>true</PlainText>
+        		</AdministratorPassword>
+				<LocalAccounts>
+					<LocalAccount wcm:action="add">
+						<Password>
+							<Value>A-PW</Value>
+							<PlainText>true</PlainText>
+						</Password>
+						<Description>A-DESC</Description>
+						<DisplayName>A-USER</DisplayName>
+						<Group>Administrators</Group>
+						<Name>A-USER</Name>
+					</LocalAccount>
+				</LocalAccounts>
+			</UserAccounts>
+			<RegisteredOrganization>A-ORG</RegisteredOrganization>
+			<RegisteredOwner>A-USER</RegisteredOwner>
+			<DisableAutoDaylightTimeSet>false</DisableAutoDaylightTimeSet>
+			<TimeZone>W. Europe Standard Time</TimeZone>
+			<VisualEffects>
+				<SystemDefaultBackgroundColor>14</SystemDefaultBackgroundColor>
+			</VisualEffects>
+		</component>
+		<component name="Microsoft-Windows-ehome-reg-inf" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="NonSxS" 
+        xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<RestartEnabled>true</RestartEnabled>
+		</component>
+	</settings>
+</unattend>
