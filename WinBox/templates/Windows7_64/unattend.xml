@@ -4,13 +4,13 @@
 		<component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
         xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<SetupUILanguage>
-				<UILanguage>de-DE</UILanguage>
+				<UILanguage>%locale%</UILanguage>
 			</SetupUILanguage>
-			<InputLocale>de-DE</InputLocale>
-			<SystemLocale>de-DE</SystemLocale>
-			<UILanguage>de-DE</UILanguage>
-			<UILanguageFallback>de-DE</UILanguageFallback>
-			<UserLocale>de-DE</UserLocale>
+			<InputLocale>%locale%</InputLocale>
+			<SystemLocale>%locale%</SystemLocale>
+			<UILanguage>%locale%</UILanguage>
+			<UILanguageFallback>%locale%</UILanguageFallback>
+			<UserLocale>%locale%</UserLocale>
 		</component>
 		<component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
         xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -37,7 +37,7 @@
 					<ModifyPartitions>
 						<ModifyPartition wcm:action="add">
 							<Format>NTFS</Format>
-							<Label>System Reserved</Label>
+							<Label>%boothdd%</Label>
 							<Order>1</Order>
 							<Active>true</Active>
 							<PartitionID>1</PartitionID>
@@ -46,7 +46,7 @@
 						<ModifyPartition wcm:action="add">
 							<Active>true</Active>
 							<Format>NTFS</Format>
-							<Label>WinHDD</Label>
+							<Label>%mainhdd%</Label>
 							<Letter>C</Letter>
 							<Order>2</Order>
 							<PartitionID>2</PartitionID>
@@ -66,10 +66,10 @@
 			</ImageInstall>
 			<UserData>
 				<AcceptEula>true</AcceptEula>
-				<FullName>A-USER</FullName>
-				<Organization>KEY-ORG</Organization>
+				<FullName>%user%</FullName>
+				<Organization>%org%</Organization>
 				<ProductKey>
-                    <Key>AAAAA-AAAAA-AAAAA-AAAAA-AAAAA</Key>
+                    <Key>%key%</Key>
                     <WillShowUI>OnError</WillShowUI>
                 </ProductKey>
 			</UserData>
@@ -89,21 +89,21 @@
 		</component>
 		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
         xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<ComputerName>KEY-PC</ComputerName>
-			<ProductKey>AAAAA-AAAAA-AAAAA-AAAAA-AAAAA</ProductKey>
+			<ComputerName>%computer%</ComputerName>
+			<ProductKey>%key%</ProductKey>
 			<TimeZone>W. Europe Standard Time</TimeZone>
 		</component>
 	</settings>
 	<settings pass="oobeSystem">
 		<component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
         xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<InputLocale>de-DE</InputLocale>
-			<UILanguage>de-DE</UILanguage>
-			<UserLocale>de-DE</UserLocale>
+			<InputLocale>%locale%</InputLocale>
+			<UILanguage>%locale%</UILanguage>
+			<UserLocale>%locale%</UserLocale>
 		</component>
 		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" 
         xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<RegisteredOwner>A-USER</RegisteredOwner>
+			<RegisteredOwner>%user%</RegisteredOwner>
 			<OOBE>
 				<HideEULAPage>true</HideEULAPage>
 				<NetworkLocation>Home</NetworkLocation>
@@ -135,28 +135,28 @@
 			</FirstLogonCommands>
 			<AutoLogon>
 				<Password>
-					<Value>A-PW</Value>
+					<Value>%pass%</Value>
 					<PlainText>true</PlainText>
 				</Password>
 				<Enabled>true</Enabled>
-				<Username>A-USER</Username>
+				<Username>%user%</Username>
 			</AutoLogon>
 			<ShowWindowsLive>false</ShowWindowsLive>
 			<UserAccounts>
 			    <AdministratorPassword>
-                    <Value>vagrant</Value>
+                    <Value>%pass%</Value>
                     <PlainText>true</PlainText>
                 </AdministratorPassword>
 				<LocalAccounts>
 					<LocalAccount wcm:action="add">
 						<Password>
-							<Value>A-PW</Value>
+							<Value>%pass%</Value>
 							<PlainText>true</PlainText>
 						</Password>
-						<Description>A-DESC</Description>
-						<DisplayName>A-USER</DisplayName>
+						<Description>%desc%</Description>
+						<DisplayName>%user%</DisplayName>
 						<Group>Administrators</Group>
-						<Name>A-USER</Name>
+						<Name>%user%</Name>
 					</LocalAccount>
 				</LocalAccounts>
 			</UserAccounts>
