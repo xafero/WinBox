@@ -32,15 +32,25 @@ namespace WinBox
 			var machRoot = Path.Combine(templRoot, machine.OperatingSystem+"");
 			var answerSrc = Path.Combine(machRoot, "unattend.xml");
 			var answerDst = Path.Combine(root, "Autounattend.xml");
-			var isoUrl = config["isoPath"];
-			var isoHash = config["isoHash"];
-			var pack = Defaults.CreateVirtualBox(machine, isoUrl, isoHash);
+			var builder = config["builder"];
+			var pack = Defaults.CreateVirtualBox(machine, builder);
 			Answers.CopyReplace(templRoot, answerSrc, answerDst);
 			pack.builders.First().AddFloppyFile(answerDst);
 			const string vagrantFile = "vagrantfile-windows.template";
 			var vagrantSrc = Path.Combine(templRoot, vagrantFile);
 			var vagrantDst = Path.Combine(root, vagrantFile);
 			File.Copy(vagrantSrc, vagrantDst, overwrite: true);
+			var isoStore = Path.GetFullPath(config["isoStore"]);
+			var machIsoStore = Path.Combine(isoStore, machine.OperatingSystem+"");
+			log.InfoFormat("ISO store => {0}", machIsoStore);
+			var machIso = Shell.FindNewestFile(machIsoStore, "*.iso");
+			if (string.IsNullOrWhiteSpace(machIso))
+			{
+				log.ErrorFormat("No ISO found!");
+				return;
+			}
+			pack.variables.iso_url = machIso.Replace('\\', '/');
+			pack.variables.iso_checksum = Shell.GetOrCreateHash(machIso);
 			var packFile = Path.Combine(root, "winbox.json");
 			log.InfoFormat("Generating => {0}", packFile);
 			File.WriteAllText(packFile, pack.ToString());

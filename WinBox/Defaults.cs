@@ -5,13 +5,13 @@ namespace WinBox
 {
 	public static class Defaults
 	{
-		public static Pack CreateVirtualBox(MachineConfig m, string isoUrl, string isoHash)
+		public static Pack CreateVirtualBox(MachineConfig m, string builderName)
 		{
 			var pack = new Pack
 			{
 				builders = {
 					new Builder {
-						type = "virtualbox-iso",
+						type = builderName,
 						vboxmanage = {
 							new [] { "modifyvm", "{{.Name}}", "--memory", m.Memory+"" },
 							new [] { "modifyvm", "{{.Name}}", "--vram", m.Vram+"" },
@@ -50,9 +50,7 @@ namespace WinBox
 				},
 				variables = new Variables {
 					guest_additions_mode = "attach",
-					headless = "false",
-					iso_checksum = isoHash,
-					iso_url = isoUrl
+					headless = "false"
 				}
 			};
 			var builder = pack.builders.First();

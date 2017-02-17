@@ -56,10 +56,13 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="templates\win12r2\unattend_x64.xml">
+    <None Include="templates\Windows2012_64\unattend.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="templates\Windows7_64\unattend.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="templates\Windows7\unattend.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="templates\vagrantfile-windows.template">
@@ -68,8 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="templates" />
-    <Folder Include="templates\win12r2" />
+    <Folder Include="templates\Windows2012_64" />
     <Folder Include="templates\Windows7_64" />
+    <Folder Include="templates\Windows7" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
