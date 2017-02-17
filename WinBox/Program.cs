@@ -34,7 +34,7 @@ namespace WinBox
 			var answerDst = Path.Combine(root, "Autounattend.xml");
 			var builder = config["builder"];
 			var pack = Defaults.CreateVirtualBox(machine, builder);
-			Answers.CopyReplace(templRoot, answerSrc, answerDst);
+			Answers.CopyReplace(templRoot, answerSrc, answerDst, config);
 			pack.builders.First().AddFloppyFile(answerDst);
 			const string vagrantFile = "vagrantfile-windows.template";
 			var vagrantSrc = Path.Combine(templRoot, vagrantFile);
