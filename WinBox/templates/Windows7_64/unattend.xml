@@ -132,6 +132,12 @@
 					<Description>Control Panel Icon Size</Description>
 					<CommandLine>reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel" /v AllItemsIconView /t REG_DWORD /d 1 /f</CommandLine>
 				</SynchronousCommand>
+				<SynchronousCommand wcm:action="add">
+					<RequiresUserInput>true</RequiresUserInput>
+					<Order>4</Order>
+					<Description>Boot Agent</Description>
+					<CommandLine>cmd /c a:\WinBox.Boot.exe</CommandLine>
+				</SynchronousCommand>
 			</FirstLogonCommands>
 			<AutoLogon>
 				<Password>

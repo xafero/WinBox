@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Linq;
 using log4net;
 using log4net.Config;
+using WinBox.Boot;
 
 namespace WinBox
 {
@@ -36,6 +37,8 @@ namespace WinBox
 			var pack = Defaults.CreateVirtualBox(machine, builder);
 			Answers.CopyReplace(templRoot, answerSrc, answerDst, config);
 			pack.builders.First().AddFloppyFile(answerDst);
+			foreach (var afile in Reflections.GetAssemblyFiles<BootProgram>())
+				pack.builders.First().AddFloppyFile(afile);
 			const string vagrantFile = "vagrantfile-windows.template";
 			var vagrantSrc = Path.Combine(templRoot, vagrantFile);
 			var vagrantDst = Path.Combine(root, vagrantFile);
