@@ -1,9 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 using WinBox.Net;
 
@@ -70,7 +72,23 @@ namespace WinBox.Boot
 		
 		private static void TryConnect(IPAddress addr)
 		{
-			Console.WriteLine(addr);
+			const int port = 56000;
+			using (var client = new TcpClient())
+			{
+				var endpoint = new IPEndPoint(addr, port);
+				if (!client.TryConnect(endpoint))
+					return;
+				Console.WriteLine("Connected to '{0}'!", endpoint);
+				using (var reader = new StreamReader(client.GetStream(), Encoding.UTF8))
+				{
+					while (client.Connected)
+					{
+						var line = reader.ReadLine();
+						Console.WriteLine(line);
+					}
+				}
+				waiter.Set();
+			}
 		}
 	}
 }

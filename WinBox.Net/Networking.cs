@@ -3,11 +3,25 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 
 namespace WinBox.Net
 {
 	public static class Networking
 	{
+		public static bool TryConnect(this TcpClient client, IPEndPoint endpoint)
+		{
+			try
+			{
+				client.Connect(endpoint);
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
 		public static IEnumerable<IPAddress> GenerateRange(IPAddress address)
 		{
 			var bytes = address.GetAddressBytes();
