@@ -72,6 +72,18 @@
     <None Include="templates\Windows2012_64\unattend.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="templates\Windows10_64\unattend.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="templates\Windows10\unattend.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="templates\Windows81_64\unattend.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="templates\Windows81\unattend.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="templates\Windows7_64\unattend.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -85,6 +97,10 @@
   <ItemGroup>
     <Folder Include="templates" />
     <Folder Include="templates\Windows2012_64" />
+    <Folder Include="templates\Windows10_64" />
+    <Folder Include="templates\Windows10" />
+    <Folder Include="templates\Windows81_64" />
+    <Folder Include="templates\Windows81" />
     <Folder Include="templates\Windows7_64" />
     <Folder Include="templates\Windows7" />
   </ItemGroup>
