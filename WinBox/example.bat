@@ -1,3 +1,4 @@
 WinBox -Dguest=Windows2012_64 -Dkey=D2N9P-3P6X9-2R39C-7RTCD-MDVJX
+WinBox -Dguest=Windows10_64   -Dkey=VK7JG-NPHTM-C97JM-9MPGT-3V66T
 WinBox -Dguest=Windows7_64    -Dkey=HYF8J-CVRMY-CM74G-RPHKF-PW487
 WinBox -Dguest=Windows7       -Dkey=HYF8J-CVRMY-CM74G-RPHKF-PW487
