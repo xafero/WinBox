@@ -9,6 +9,19 @@ namespace WinBox.Net
 {
 	public static class Networking
 	{
+		public static bool TryDownloadFile(this WebClient client, string address, string file)
+		{
+			try
+			{
+				client.DownloadFile(address, file);
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+		
 		public static bool TryConnect(this TcpClient client, IPEndPoint endpoint)
 		{
 			try
