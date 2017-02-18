@@ -27,6 +27,13 @@ namespace WinBox
 			var templRoot = Path.Combine(appRoot, "templates");
 			log.InfoFormat("Template root => {0}", templRoot);
 			var machine = new MachineConfig();
+			GuestOS machineGuest;
+			if (!Enum.TryParse(config["guest"], true, out machineGuest))
+			{
+				var help = string.Join(" | ", Enum.GetNames(typeof(GuestOS)));
+				log.ErrorFormat("Not valid guest type! ( {0} )", help);
+				return;
+			}
 			var machRoot = Path.Combine(templRoot, machine.OperatingSystem+"");
 			var answerSrc = Path.Combine(machRoot, "unattend.xml");
 			var answerDst = Path.Combine(root, "Autounattend.xml");
