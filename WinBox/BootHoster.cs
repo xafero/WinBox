@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using Mono.Net;
 
@@ -6,7 +8,25 @@ namespace WinBox
 {
 	public static class BootHoster
 	{
-		public static bool HostFile(byte[] bytes)
+		public static bool HostFiles(params string[] files)
+		{
+			using (var mem = new MemoryStream())
+			{
+				var mode = ZipArchiveMode.Create;
+				using (var zip = new ZipArchive(mem, mode))
+				{
+					var lvl = CompressionLevel.NoCompression;
+					foreach (var file in files)
+					{
+						var name = Path.GetFileName(file);
+						zip.CreateEntryFromFile(file, name, lvl);
+					}
+				}
+				return HostBytes(mem.ToArray());
+			}
+		}
+
+		private static bool HostBytes(byte[] bytes)
 		{
 			const int port = 56000;
 			var listener = new HttpListener();
