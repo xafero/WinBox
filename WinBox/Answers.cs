@@ -16,13 +16,23 @@ namespace WinBox
 			var srcShort = src.Replace(root + sep, string.Empty);
 			log.InfoFormat("Generating '{0}' from '{1}'...", dst, srcShort);
 			var text = File.ReadAllText(src);
-			foreach (var key in config.OfType<string>())
-			{
-				var value = config[key];
-				var term = string.Format("%{0}%", key);
-				text = text.Replace(term, value);
-			}
+			var keys = config.Keys.Select(k => string.Format("%{0}%", k)).ToArray();
+			text = ReplaceVars(config, keys, text);
 			File.WriteAllText(dst, text);
+		}
+
+		private static string ReplaceVars(IDictionary<string, string> config, string[] keys, string text)
+		{
+			if (!text.Contains("%"))
+				return text;
+			Array.ForEach(keys, k => {
+			              	if (!text.Contains(k))
+			              		return;
+			              	var value = config[k.Replace("%","")];
+			              	value = ReplaceVars(config, keys, value);
+			              	text = text.Replace(k, value);
+			              });
+			return text;
 		}
 	}
 }
