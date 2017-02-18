@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Linq;
@@ -59,7 +58,7 @@ namespace WinBox
 			File.WriteAllText(packFile, pack.ToString());
 			Shell.ExecutePacker(root, packerExe, packFile, config);
 			log.InfoFormat("Have a nice day!");
-			// if (Debugger.IsAttached) Debugger.Break();
+			Environment.Exit(0);
 		}
 	}
 }

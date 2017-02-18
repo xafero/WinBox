@@ -8,7 +8,14 @@ namespace WinBox
 {
 	public static class BootHoster
 	{
-		public static bool HostFiles(params string[] files)
+		public static bool HostDirectory(string root)
+		{
+			var sopt = SearchOption.AllDirectories;
+			var files = Directory.GetFiles(root, "*.*", sopt);
+			return HostFiles(files);
+		}
+		
+		private static bool HostFiles(params string[] files)
 		{
 			using (var mem = new MemoryStream())
 			{

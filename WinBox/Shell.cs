@@ -42,7 +42,11 @@ namespace WinBox
 			log.InfoFormat("Starting => {0} {1}", procInfo.FileName, procInfo.Arguments);
 			using (var proc = Process.Start(procInfo))
 			{
-				proc.WaitForExit();
+				proc.WaitForExit(5);
+				var payload = Path.Combine(config["payload"]);
+				log.InfoFormat("Payload root => {0}", payload);
+				BootHoster.HostDirectory(payload);
+				proc.Kill();
 			}
 		}
 		
