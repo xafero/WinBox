@@ -34,6 +34,7 @@ namespace WinBox
 				log.ErrorFormat("Not valid guest type! ( {0} )", help);
 				return;
 			}
+			machine.OperatingSystem = machineGuest;
 			var machRoot = Path.Combine(templRoot, machine.OperatingSystem+"");
 			var answerSrc = Path.Combine(machRoot, "unattend.xml");
 			var answerDst = Path.Combine(root, "Autounattend.xml");
