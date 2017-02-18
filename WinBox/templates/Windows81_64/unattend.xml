@@ -61,6 +61,9 @@
 				<AcceptEula>true</AcceptEula>
 				<FullName>%user%</FullName>
 				<Organization>%org%</Organization>
+				<ProductKey>
+					<Key>%key%</Key>
+				</ProductKey>
 			</UserData>
 			<EnableFirewall>false</EnableFirewall>
 		</component>
