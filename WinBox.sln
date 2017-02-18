@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinBox.Net", "WinBox.Net\Wi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinBox.Boot", "WinBox.Boot\WinBox.Boot.csproj", "{D5D01696-D299-4551-8446-699569CCF0EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinBox.Config", "WinBox.Config\WinBox.Config.csproj", "{6C31A7F5-F90B-4F29-BBD2-6A57BF7B29E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,5 +30,9 @@ Global
 		{D5D01696-D299-4551-8446-699569CCF0EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5D01696-D299-4551-8446-699569CCF0EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5D01696-D299-4551-8446-699569CCF0EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C31A7F5-F90B-4F29-BBD2-6A57BF7B29E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C31A7F5-F90B-4F29-BBD2-6A57BF7B29E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C31A7F5-F90B-4F29-BBD2-6A57BF7B29E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C31A7F5-F90B-4F29-BBD2-6A57BF7B29E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
