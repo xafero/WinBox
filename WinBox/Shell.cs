@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -13,7 +13,7 @@ namespace WinBox
 	{
 		private static readonly ILog log = LogManager.GetLogger("shell");
 		
-		public static void DownloadPacker(string root, NameValueCollection config)
+		public static void DownloadPacker(string root, IDictionary<string, string> config)
 		{
 			var packerUrl = config["packer"];
 			log.InfoFormat("Downloading from => {0}", packerUrl);
@@ -29,7 +29,7 @@ namespace WinBox
 			}
 		}
 		
-		public static void ExecutePacker(string workDir, string packerExe, string pack, NameValueCollection config)
+		public static void ExecutePacker(string workDir, string packerExe, string pack, IDictionary<string, string> config)
 		{
 			var builder = config["builder"];
 			var procInfo = new ProcessStartInfo

@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Answers.cs" />
     <Compile Include="BootHoster.cs" />
+    <Compile Include="Configs.cs" />
     <Compile Include="Defaults.cs" />
     <Compile Include="Forwarding.cs" />
     <Compile Include="GuestOS.cs" />
@@ -88,6 +89,10 @@
     <ProjectReference Include="..\WinBox.Boot\WinBox.Boot.csproj">
       <Project>{d5d01696-d299-4551-8446-699569ccf0ef}</Project>
       <Name>WinBox.Boot</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinBox.Config\WinBox.Config.csproj">
+      <Project>{6c31a7f5-f90b-4f29-bbd2-6a57bf7b29e6}</Project>
+      <Name>WinBox.Config</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

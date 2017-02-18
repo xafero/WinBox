@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
-using System.Configuration;
 using System.IO;
 using System.Reflection;
 using System.Linq;
@@ -17,7 +15,7 @@ namespace WinBox
 		public static void Main(string[] args)
 		{
 			BasicConfigurator.Configure();
-			var config = ConfigurationManager.AppSettings;
+			var config = Configs.BuildConfig(ref args);
 			var root = Path.GetFullPath(config["root"] ?? Environment.CurrentDirectory);
 			log.InfoFormat("Root folder => {0}", root);
 			var packerExe = Path.Combine(root, "packer.exe");

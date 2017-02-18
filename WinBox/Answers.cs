@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 using System.IO;
 using log4net;
 
@@ -10,7 +10,7 @@ namespace WinBox
 	{
 		private static readonly ILog log = LogManager.GetLogger("answers");
 		
-		public static void CopyReplace(string root, string src, string dst, NameValueCollection config)
+		public static void CopyReplace(string root, string src, string dst, IDictionary<string, string> config)
 		{
 			var sep = Path.DirectorySeparatorChar;
 			var srcShort = src.Replace(root + sep, string.Empty);
