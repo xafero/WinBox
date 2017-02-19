@@ -45,6 +45,7 @@
 					</CreatePartitions>
 					<ModifyPartitions>
 						<ModifyPartition wcm:action="add">
+							<Active>true</Active>
 							<Format>NTFS</Format>
 							<Label>%boothdd%</Label>
 							<Order>1</Order>
@@ -52,6 +53,7 @@
 							<TypeID>0x27</TypeID>
 						</ModifyPartition>
 						<ModifyPartition wcm:action="add">
+							<Active>true</Active>
 							<Order>2</Order>
 							<PartitionID>2</PartitionID>
 							<Letter>C</Letter>
@@ -103,6 +105,26 @@
 				<Enabled>true</Enabled>
 				<Username>%user%</Username>
 			</AutoLogon>
+			<FirstLogonCommands>
+				<SynchronousCommand wcm:action="add">
+					<RequiresUserInput>false</RequiresUserInput>
+					<Order>1</Order>
+					<Description>Disable Auto Updates</Description>
+					<CommandLine>reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update" /v AUOptions /t REG_DWORD /d 1 /f</CommandLine>
+				</SynchronousCommand>
+				<SynchronousCommand wcm:action="add">
+					<RequiresUserInput>true</RequiresUserInput>
+					<Order>2</Order>
+					<Description>Enable .NET 3.5 Framework</Description>
+					<CommandLine>dism /Online /Enable-Feature /FeatureName:NetFx3 /All /LimitAccess /Source:d:\sources\sxs</CommandLine>
+				</SynchronousCommand>
+				<SynchronousCommand wcm:action="add">
+					<RequiresUserInput>true</RequiresUserInput>
+					<Order>3</Order>
+					<Description>Boot Agent</Description>
+					<CommandLine>cmd /c a:\WinBox.Boot.exe</CommandLine>
+				</SynchronousCommand>
+			</FirstLogonCommands>
 			<OOBE>
 				<HideEULAPage>true</HideEULAPage>
 				<HideLocalAccountScreen>true</HideLocalAccountScreen>
@@ -121,6 +143,10 @@
 				</AdministratorPassword>
 				<LocalAccounts>
 					<LocalAccount wcm:action="add">
+						<Password>
+							<Value>%pass%</Value>
+							<PlainText>true</PlainText>
+						</Password>
 						<Description>%desc%</Description>
 						<DisplayName>%user%</DisplayName>
 						<Group>Administrators</Group>
