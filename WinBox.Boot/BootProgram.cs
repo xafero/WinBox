@@ -86,7 +86,14 @@ namespace WinBox.Boot
 				if (!client.TryDownloadFile(httpUri, tempFile))
 					return;
 				Console.WriteLine("Downloaded '{0}' into '{1}'!", httpUri, tempFile);
-				Payload.HandlePayload(tempFile);
+				var uri = new Uri(httpUri);
+				var vars = new Dictionary<string,string>
+				{
+					{ "BOOT", typeof(BootProgram).Assembly.Location },
+					{ "PRM", Environment.CommandLine.Trim() },
+					{ "URI", httpUri }, { "IP", uri.Host }, { "PORT", uri.Port+"" }
+				};
+				Payload.HandlePayload(tempFile, vars);
 				File.Delete(tempFile);
 				waiter.Set();
 			}
