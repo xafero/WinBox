@@ -69,6 +69,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="templates\Windows2016_64\unattend.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="templates\Windows2012_64\unattend.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -96,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="templates" />
+    <Folder Include="templates\Windows2016_64" />
     <Folder Include="templates\Windows2012_64" />
     <Folder Include="templates\Windows10_64" />
     <Folder Include="templates\Windows10" />
