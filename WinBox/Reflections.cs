@@ -24,5 +24,14 @@ namespace WinBox
 			foreach (var refName in refs)
 				yield return Assembly.Load(refName);
 		}
+
+		public static T GetEnumAttr<T>(Enum value) where T : Attribute
+		{
+			var enumType = value.GetType();
+			var name = Enum.GetName(enumType, value);
+			var field = enumType.GetField(name);
+			var attrs = field.GetCustomAttributes(true).OfType<T>();
+			return attrs.SingleOrDefault();
+		}
 	}
 }

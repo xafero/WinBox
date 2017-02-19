@@ -19,7 +19,7 @@ namespace WinBox
 						},
 						guest_additions_mode = "{{ user `guest_additions_mode` }}",
 						guest_additions_path = "C:/users/vagrant/VBoxGuestAdditions.iso",
-						guest_os_type = m.OperatingSystem,
+						guest_os_type = PatchOSIfNeeded(m.OperatingSystem),
 						iso_url = "{{ user `iso_url` }}",
 						iso_checksum = "{{ user `iso_checksum` }}",
 						iso_checksum_type = "sha1",
@@ -57,6 +57,14 @@ namespace WinBox
 			foreach (var forward in m.Forwardings)
 				builder.vboxmanage.Insert(0, new [] { "modifyvm", "{{.Name}}", "--natpf1", forward.ToString() });
 			return pack;
+		}
+
+		private static GuestOS PatchOSIfNeeded(GuestOS guest)
+		{
+			var patchAttr = Reflections.GetEnumAttr<VirtualBoxAttribute>(guest);
+			if (patchAttr == null)
+				return guest;
+			return patchAttr.RealOS;
 		}
 	}
 }

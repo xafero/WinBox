@@ -11,6 +11,16 @@ namespace WinBox
 		Windows2012_64,
 		Windows10,
 		Windows10_64,
-		Windows2016_64
+		[VirtualBox(Windows2012_64)] Windows2016_64
+	}
+	
+	public class VirtualBoxAttribute : Attribute
+	{
+		public GuestOS RealOS { get; private set; }
+		
+		public VirtualBoxAttribute(GuestOS realOS)
+		{
+			RealOS = realOS;
+		}
 	}
 }
