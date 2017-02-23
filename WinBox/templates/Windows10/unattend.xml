@@ -156,6 +156,12 @@
 				<SynchronousCommand wcm:action="add">
 					<RequiresUserInput>true</RequiresUserInput>
 					<Order>4</Order>
+					<Description>Enable .NET 3.5 Framework</Description>
+					<CommandLine>dism /Online /Enable-Feature /FeatureName:NetFx3 /All /LimitAccess /Source:d:\sources\sxs</CommandLine>
+				</SynchronousCommand>
+				<SynchronousCommand wcm:action="add">
+					<RequiresUserInput>true</RequiresUserInput>
+					<Order>5</Order>
 					<Description>Boot Agent</Description>
 					<CommandLine>cmd /c a:\WinBox.Boot.exe</CommandLine>
 				</SynchronousCommand>
