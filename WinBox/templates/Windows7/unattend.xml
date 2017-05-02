@@ -136,7 +136,7 @@
 					<RequiresUserInput>true</RequiresUserInput>
 					<Order>4</Order>
 					<Description>Boot Agent</Description>
-					<CommandLine>cmd /c a:\WinBox.Boot.exe</CommandLine>
+					<CommandLine>cmd /c a:\WinBox.Boot.exe %hostip%</CommandLine>
 				</SynchronousCommand>
 			</FirstLogonCommands>
 			<AutoLogon>
