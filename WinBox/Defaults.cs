@@ -1,11 +1,61 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace WinBox
 {
 	public static class Defaults
 	{
-		public static Pack CreateVirtualBox(MachineConfig m, string builderName)
+	    public static Pack CreateHyperVIso(MachineConfig m, string builderName, string vmName)
+	    {
+            var pack = new Pack
+            {
+                builders = {
+                    new Builder {
+                        type = builderName,
+                        iso_url = "{{ user `iso_url` }}",
+                        iso_checksum = "{{ user `iso_checksum` }}",
+                        iso_checksum_type = "sha1",
+                        disk_size = 50 * 1024,
+                        enable_dynamic_memory = true,
+                        floppy_files = new string[0],
+                        guest_additions_mode = "{{ user `guest_additions_mode` }}",
+                        guest_additions_path = "C:/Windows/System32/vmguest.iso",
+                        ram_size = 2 * 1024,
+                        shutdown_command = "C:/windows/system32/sysprep/sysprep.exe /generalize /oobe /unattend:C:/Windows/Panther/Unattend/unattend.xml /quiet /shutdown",
+                        shutdown_timeout = "15m",
+                        communicator = "winrm",
+                        winrm_username = "vagrant",
+                        winrm_password = "vagrant",
+                        winrm_port = 5985,
+                        winrm_timeout = "24h",
+                    }
+                },
+                /* provisioners = {
+					new Provisioner {
+						type = "powershell",
+						script = "scripts/provision.ps1"
+					}
+				}, */
+                post_processors = {
+                    new PostProcessor {
+                        type = "vagrant",
+                        keep_input_artifact = true,
+                        output = "windows7-{{.Provider}}.box",
+                        vagrantfile_template = "vagrantfile-windows.template"
+                    }
+                },
+                variables = new Variables
+                {
+                    guest_additions_mode = "attach"
+                }
+            };
+            var builder = pack.builders.First();
+            if (!string.IsNullOrWhiteSpace(vmName))
+                builder.vm_name = vmName;
+	        builder.vboxmanage = null;
+            return pack;
+        }
+
+		public static Pack CreateVirtualBoxIso(MachineConfig m, string builderName, string vmName)
 		{
 			var pack = new Pack
 			{
@@ -54,7 +104,9 @@ namespace WinBox
 				}
 			};
 			var builder = pack.builders.First();
-			foreach (var forward in m.Forwardings)
+            		if (!string.IsNullOrWhiteSpace(vmName))
+		                builder.vm_name = vmName;
+            		foreach (var forward in m.Forwardings)
 				builder.vboxmanage.Insert(0, new [] { "modifyvm", "{{.Name}}", "--natpf1", forward.ToString() });
 			return pack;
 		}
