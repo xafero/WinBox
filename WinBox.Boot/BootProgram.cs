@@ -12,10 +12,10 @@ namespace WinBox.Boot
 {
     public class BootProgram
     {
-        private static readonly object sync = new object();
+        static readonly object sync = new object();
 
-        private static AutoResetEvent waiter;
-        private static Dictionary<IPAddress, IPStatus?> scanned;
+        static AutoResetEvent waiter;
+        static Dictionary<IPAddress, IPStatus?> scanned;
 
         public static void Main(string[] args)
         {
@@ -38,12 +38,12 @@ namespace WinBox.Boot
             Console.WriteLine("Boot completed.");
         }
 
-        private static void TryFind()
+        static void TryFind()
         {
             TryFind(Networking.GetAllIPAddresses());
         }
 
-        private static void TryFind(IEnumerable<IPAddress> addresses)
+        static void TryFind(IEnumerable<IPAddress> addresses)
         {
             lock (sync)
             {
@@ -58,7 +58,7 @@ namespace WinBox.Boot
             }
         }
 
-        private static void OnPingResult(object sender, PingCompletedEventArgs e)
+        static void OnPingResult(object sender, PingCompletedEventArgs e)
         {
             lock (sync)
             {
@@ -70,7 +70,7 @@ namespace WinBox.Boot
             }
         }
 
-        private static void OnSuccess(IPAddress addr, PingReply reply)
+        static void OnSuccess(IPAddress addr, PingReply reply)
         {
             if (reply.Address.AddressFamily == AddressFamily.InterNetwork)
             {
@@ -82,7 +82,7 @@ namespace WinBox.Boot
             }
         }
 
-        private static void TryConnect(IPAddress addr)
+        static void TryConnect(IPAddress addr)
         {
             const int port = 56000;
             using (var client = new WebClient())
