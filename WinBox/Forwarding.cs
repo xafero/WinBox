@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WinBox
+﻿namespace WinBox
 {
 	public class Forwarding
 	{
