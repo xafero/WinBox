@@ -39,7 +39,11 @@ namespace WinBox
 			var answerSrc = Path.Combine(machRoot, "unattend.xml");
 			var answerDst = Path.Combine(root, "Autounattend.xml");
 			var builder = config["builder"];
-			var pack = Defaults.CreateVirtualBox(machine, builder);
+			var name = config["name"];
+			var packMeths = typeof(Defaults).GetMethods();
+			var packMeth = packMeths.FirstOrDefault(m => m.Name.EndsWith(builder.Replace("-", ""), StringComparison.InvariantCultureIgnoreCase));
+			if (packMeth == null) throw new InvalidOperationException($"No pack definition for '{builder}' found!");
+			var pack = (Pack) packMeth.Invoke(null, new object[] {machine, builder, name});
 			Answers.CopyReplace(templRoot, answerSrc, answerDst, config);
 			pack.builders.First().AddFloppyFile(answerDst);
 			foreach (var afile in Reflections.GetAssemblyFiles<BootProgram>())
