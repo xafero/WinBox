@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -41,7 +40,7 @@ namespace WinBox
 		public List<string[]> vboxmanage { get; set; }
 		public string guest_additions_mode { get; set; }
 		public string guest_additions_path { get; set; }
-		public GuestOS guest_os_type { get; set; }
+		public GuestOS? guest_os_type { get; set; }
 		public string iso_url { get; set; }
 		public string iso_checksum { get; set; }
 		public string iso_checksum_type { get; set; }
@@ -52,10 +51,14 @@ namespace WinBox
 		public int winrm_port { get; set; }
 		public string winrm_timeout { get; set; }
 		public string shutdown_command { get; set; }
-		public string shutdown_timeout { get; set; }
+        public string vm_name { get; set; }
+        public string shutdown_timeout { get; set; }
 		public string[] floppy_files { get; set; }
-		
-		public Builder()
+	    public int disk_size { get; set; }
+	    public bool enable_dynamic_memory { get; set; }
+	    public int ram_size { get; set; }
+
+	    public Builder()
 		{
 			vboxmanage = new List<string[]>();
 		}
